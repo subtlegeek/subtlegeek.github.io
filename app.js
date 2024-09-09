@@ -24,12 +24,15 @@ document.addEventListener("DOMContentLoaded", function() {
     function startCountdown() {
         let timeLeft = 3; // countdown from 3 seconds
         countdownDisplay.textContent = timeLeft;
+        countdownDisplay.style.display = 'block'; // Ensure countdown is visible
+
         const countdownInterval = setInterval(() => {
             timeLeft -= 1;
             countdownDisplay.textContent = timeLeft;
             if (timeLeft <= 0) {
                 clearInterval(countdownInterval);
-                capturePhoto();
+                countdownDisplay.style.display = 'none'; // Hide countdown
+                capturePhoto(); // Proceed to capture the photo
             }
         }, 1000);
     }
@@ -42,16 +45,14 @@ document.addEventListener("DOMContentLoaded", function() {
         context.drawImage(camera, 0, 0, canvas.width, canvas.height);
         photo.src = canvas.toDataURL('image/png');
         printPhoto.src = canvas.toDataURL('image/png');
-        printablePage.style.display = 'block'; // show printable page
+        printablePage.style.display = 'block'; // Show printable page
         downloadButton.style.display = 'block';
         printButton.style.display = 'block';
-        countdownDisplay.style.display = 'none'; // hide countdown after capture
     }
 
     // Capture button click event
     captureButton.addEventListener('click', function() {
-        countdownDisplay.style.display = 'block'; // show countdown
-        startCountdown();
+        startCountdown(); // Start the countdown on button click
     });
 
     // Download photo
@@ -64,10 +65,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Print photo
     printButton.addEventListener('click', function() {
-        window.print(); // trigger print dialog
+        window.print(); // Trigger print dialog
     });
 
-    // Optionally set a logo (could be customized or uploaded by the user)
-    // Example logo source
-    logo.src = 'path/to/your/logo.png'; // replace with your logo URL
+    // Optionally set a logo (customize this path as needed)
+    logo.src = 'path/to/your/logo.png'; // Replace with your logo URL
 });
